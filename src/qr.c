@@ -54,12 +54,12 @@ void printRawOct(unsigned char* r, int len) {
   } else printf("null\n");
 }
 
-void printRawQr(unsigned char* r) {
+void printRawQr(unsigned char* r, int maxSize) {
   if (r) {
-    for (int i=0; i<0x1F; i++) {
+    for (int i=0; i<0x20; i++) {
       for (int j=0; j<0x10; j++) {
         printf("%02X ", r[0x10*i+j]);
-        //if (0x10*i+j > 0x1ED) break;
+        if (0x10*i+j > maxSize) break;
       }
       printf("\n");
     }

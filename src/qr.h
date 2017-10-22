@@ -44,7 +44,7 @@ typedef struct
 
 qr_meme_t* initWithPng(char* fpath);
 qr_meme_t* initWithArray(unsigned char* data);
-void printRawQr(unsigned char* r);
+void printRawQr(unsigned char* r, int maxSize);
 void printRawOct(unsigned char* r, int len);
 
 qr_t* memedecryptoRawQR(qr_meme_t* source);
