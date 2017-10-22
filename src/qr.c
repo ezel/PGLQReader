@@ -57,9 +57,10 @@ void printRawOct(unsigned char* r, int len) {
 void printRawQr(unsigned char* r, int maxSize) {
   if (r) {
     for (int i=0; i<0x20; i++) {
+      printf("L%02i: ", i+1);
       for (int j=0; j<0x10; j++) {
+        if (0x10*i+j >= maxSize) break;
         printf("%02X ", r[0x10*i+j]);
-        if (0x10*i+j > maxSize) break;
       }
       printf("\n");
     }

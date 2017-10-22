@@ -4,8 +4,8 @@
 #include "stdio.h"
 
 pokemon* initListWithQR(qr_dec_t* qr) {
-  pokemon res[6];
-  memcpy(res, qr->pokemon_1, 0x30*6);
+  pokemon* res = malloc(sizeof(pokemon)*6);
+  memcpy(res, (unsigned char*)qr->pokemon_1, 0x30*6);
   return res;
 }
 
@@ -18,6 +18,7 @@ pokemon* initOneWithQR(u8* raw) {
 int isPM(pokemon* pm) {
   if (pm->MonsNo < 0 || pm->MonsNo > 900)
     return 0;
+  else return 1;
 }
 
 void printTeam(pokemon* team) {
