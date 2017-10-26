@@ -30,7 +30,7 @@ typedef struct
 typedef struct
 {
   u8 metadata_flags[0x8];
-  u8 random_ctr_for_Aes[0x10];
+  u8 random_ctr_for_aes[0x10];
   u8 pokemon_1[0x30];
   u8 pokemon_2[0x30];
   u8 pokemon_3[0x30];
