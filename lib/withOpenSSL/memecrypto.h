@@ -15,4 +15,5 @@ void memecrypto_aes_decrypt(unsigned char *buf, unsigned char *output, unsigned 
 int memecrypto_sign(unsigned char *input, unsigned char *output, int len);
 int memecrypto_verify(unsigned char *input, unsigned char *output, int len);
 
+int memecrypto_verify_new(unsigned char *input, unsigned char *output, int len);
 #endif //_MEMECRYPTO_H_
