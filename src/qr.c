@@ -8,7 +8,7 @@ qr_meme_t* initWithPng(char* fpath) {
   return 0;
 }
 */
-qr_t* memedecryptRawQR(unsigned char* qr) {
+qr_t* memedecryptShiftedQR(unsigned char* qr) {
   unsigned char output[504];
   qr_t* raw_qr = malloc(sizeof(qr_t));
   if (memecrypto_verify_new((unsigned char*)qr, (unsigned char*)&output, 504)) {
