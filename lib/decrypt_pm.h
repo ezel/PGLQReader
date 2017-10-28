@@ -1,5 +1,5 @@
-#ifndef _FDECRYPT_H_
-#define _FDECRYPT_H_
+#ifndef _DECRYPT_PM_H_
+#define _DECRYPT_PM_H_
 
 #include <openssl/aes.h>
 #include <stdint.h>
@@ -17,6 +17,6 @@ typedef struct
 } ctr_state;
 
 void init_ctr(ctr_state *state, const unsigned char iv[16]);
-void decrypt_data(const u8* src, u8* dst, unsigned int src_len, const u8* iv);
+void decrypt_pm(const u8* src, u8* dst, unsigned int src_len, const u8* iv);
 
-#endif //_FDECRYPT_H_
+#endif //_DECRYPT_PM_H_

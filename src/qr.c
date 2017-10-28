@@ -1,26 +1,21 @@
-#include <string.h>
-
 #include "qr.h"
 #include "memecrypto.h"
-#include "fdecrypt.h"
+#include "decrypt_pm.h"
+
+#include <openssl/aes.h>
 /*
 qr_meme_t* initWithPng(char* fpath) {
   return 0;
 }
 */
-qr_meme_t* initWithArray(unsigned char* data) {
-  qr_meme_t* res = malloc(sizeof(qr_meme_t));
-  memcpy(res, data, 0x1EE);
-  return res;
-}
-
-qr_t* memedecryptoRawQR(qr_meme_t* source) {
-  // qr_t = memecrypto_verify(qr_meme_t);
-  qr_t* output = malloc(sizeof(qr_t));
-  if (memecrypto_verify((unsigned char*)source, (unsigned char*)output, 0x1EE)) {
-    return NULL;
+qr_t* memedecryptRawQR(unsigned char* qr) {
+  unsigned char output[504];
+  qr_t* raw_qr = malloc(sizeof(qr_t));
+  if (memecrypto_verify_new((unsigned char*)qr, (unsigned char*)&output, 504)) {
+    memcpy(raw_qr, output, sizeof(qr_t));
+    return raw_qr;
   } else {
-    return output;
+    return NULL;
   }
 }
 
@@ -28,42 +23,19 @@ qr_dec_t* decryptoQR(qr_t* source) {
   qr_dec_t* res = malloc(sizeof(qr_dec_t));
   int len = 0x1CE;
   u8 sourceData[0x1CE];
-  u8 recovered[128];
+  u8 recovered[0x1C0];
   unsigned char iv[AES_BLOCK_SIZE];
 
-  // init qr_dec_t, sourceData, and aes iv
-  memcpy(res, source, sizeof(qr_dec_t));
+  // init sourceData, and aes iv
   memcpy(sourceData, source->aes_ctr_encrypted_data, len);
   memset(recovered, 0, sizeof(recovered));
   /* source->aes_ctr_encrypted_data is  encrypted in aes-ctr 128 */
   /* with the key 0F8E2F405EAE51504EDBA7B4E297005B  and iv: source->random_ctr_for_aes */
   memcpy(iv, source->random_ctr_for_aes, AES_BLOCK_SIZE);
 
-  decrypt_data(sourceData, recovered, len, iv);
+  decrypt_pm(sourceData, recovered, len, iv);
   // save result
+  memcpy(res, source, sizeof(qr_dec_t));
   memcpy((u8*)res+0x18, recovered, len);
   return res;
-}
-
-void printRawOct(unsigned char* r, int len) {
-  if (r) {
-    for (int i=0; i<len; i++) {
-      printf("%02X ", r[i]);
-    }
-    printf("\n");
-  } else printf("null\n");
-}
-
-void printRawQr(unsigned char* r, int maxSize) {
-  if (r) {
-    for (int i=0; i<0x20; i++) {
-      if (0x10*i >= maxSize) break;
-      printf("L%02i: ", i+1);
-      for (int j=0; j<0x10; j++) {
-        if (0x10*i+j >= maxSize) break;
-        printf("%02X ", r[0x10*i+j]);
-      }
-      printf("\n");
-    }
-  } else printf("null\n");
 }

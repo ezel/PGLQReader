@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <stdlib.h>
+#include <string.h>
 
 //using std::uint8_t;
 //using std::uint64_t;
