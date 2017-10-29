@@ -45,7 +45,7 @@ void printPM(pokemon* pm) {
   //for (int i=0;i<4; i++) {  printf("Move %i: %s\n", i+1, getPM_MoveName(pm->Moves[i])); }
   printf("PPUps: %d/%d/%d/%d\n", pm->PPUps[0], pm->PPUps[1], pm->PPUps[2], pm->PPUps[3]);
   printf("HPType: %s\n", getPM_TypeName(getHPType(pm->IvFlags)));
-  printf("Familiarity: %d\n", pm->Familiarity);
+  //printf("Familiarity: %d\n", pm->Familiarity);
 }
 
 void printPMIV(int IVFlags) {

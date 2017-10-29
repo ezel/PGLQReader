@@ -8,6 +8,17 @@ qr_meme_t* initWithPng(char* fpath) {
   return 0;
 }
 */
+qr_dec_t* initWithZXingQR(unsigned char* qrdata) {
+  qr_dec_t* res;
+  shiftArray(qrdata);
+  qr_t* memedec_qr = memedecryptShiftedQR((unsigned char*)qrdata+3);
+  if (memedec_qr != NULL)
+    res = decryptoQR(memedec_qr);
+  else res = NULL;
+  free(memedec_qr);
+  return res;
+}
+
 qr_t* memedecryptShiftedQR(unsigned char* qr) {
   unsigned char output[504];
   qr_t* raw_qr = malloc(sizeof(qr_t));
@@ -38,4 +49,19 @@ qr_dec_t* decryptoQR(qr_t* source) {
   memcpy(res, source, sizeof(qr_dec_t));
   memcpy((u8*)res+0x18, recovered, len);
   return res;
+}
+
+unsigned char* shiftArray(unsigned char* b) {
+  unsigned char* array = malloc(507);
+  unsigned char lb = 0;
+  unsigned char rb = 0;
+  for(int i=0;i<507;i++)
+    {
+      unsigned char B = b[i];
+      lb = (B & 0xF0)>>4;
+      array[i] = rb << 4 | lb;
+      rb = B & 0xF;
+    }
+
+  return array;
 }

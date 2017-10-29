@@ -44,7 +44,11 @@ typedef struct
 } qr_dec_t;
 
 qr_meme_t* initWithPng(char* fpath);
-qr_t* memedecryptShiftedQR(unsigned char* qrdata);
+qr_dec_t* initWithZXingQR(unsigned char* qrdata);
 
+qr_t* memedecryptShiftedQR(unsigned char* qrdata);
 qr_dec_t* decryptoQR(qr_t* source);
+
+unsigned char* shiftArray(unsigned char* source);
+
 #endif //_QR_H_
