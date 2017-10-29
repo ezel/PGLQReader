@@ -10,12 +10,13 @@ qr_meme_t* initWithPng(char* fpath) {
 */
 qr_dec_t* initWithZXingQR(unsigned char* qrdata) {
   qr_dec_t* res;
-  shiftArray(qrdata);
-  qr_t* memedec_qr = memedecryptShiftedQR((unsigned char*)qrdata+3);
+  unsigned char* shifted = shiftArray(qrdata);
+  qr_t* memedec_qr = memedecryptShiftedQR((unsigned char*)shifted+3);
   if (memedec_qr != NULL)
     res = decryptoQR(memedec_qr);
   else res = NULL;
   free(memedec_qr);
+  free(shifted);
   return res;
 }
 

@@ -37,7 +37,6 @@ void printPM(pokemon* pm) {
   //printf("HoldItem: %s\n", getPM_ItemName(pm->HoldItem));
   printf("Nature: %s\n", getPM_NatureName(pm->Nature));
   printPMIV(pm->IvFlags);
-  printf("HyperTrainingFlags: %x\n", pm->HyperTrainingFlags);
   printPMHT(pm->HyperTrainingFlags);
   printf("EVs:%d/%d/%d/%d/%d/%d\n", pm->EffortHp, pm->EffortAtk, pm->EffortDef, pm->EffortSpAtk, pm->EffortSpDef, pm->EffortSpeed);
 
