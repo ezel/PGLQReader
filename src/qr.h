@@ -43,7 +43,7 @@ typedef struct
   u8 sha1_of_preceding[0x8];
 } qr_dec_t;
 
-qr_meme_t* initWithPng(char* fpath);
+qr_dec_t* initWithquircQR(unsigned char* qrdata);
 qr_dec_t* initWithZXingQR(unsigned char* qrdata);
 
 qr_t* memedecryptShiftedQR(unsigned char* qrdata);

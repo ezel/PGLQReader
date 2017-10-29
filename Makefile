@@ -1,5 +1,5 @@
 main: osxlib
-	gcc -o build/main.out src/*.c -Ilib -Llib -lrtqr 
+	gcc -o build/main.out src/*.c lib/libquirc.a -Ilib -Llib -lrtqr
 
 test: osxlib
 	gcc -g -o build/main.out src/*.c -Ilib -Llib -lrtqr 

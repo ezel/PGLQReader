@@ -3,11 +3,17 @@
 #include "decrypt_pm.h"
 
 #include <openssl/aes.h>
-/*
-qr_meme_t* initWithPng(char* fpath) {
-  return 0;
+
+qr_dec_t* initWithquircQR(unsigned char* qrdata) {
+  qr_dec_t* res;
+  qr_t* memedec_qr = memedecryptShiftedQR(qrdata);
+  if (memedec_qr != NULL)
+    res = decryptoQR(memedec_qr);
+  else res = NULL;
+  free(memedec_qr);
+  return res;
 }
-*/
+
 qr_dec_t* initWithZXingQR(unsigned char* qrdata) {
   qr_dec_t* res;
   unsigned char* shifted = shiftArray(qrdata);
