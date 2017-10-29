@@ -5,7 +5,7 @@ test: osxlib
 	gcc -g -o build/main.out src/*.c -Ilib -Llib -lrtqr 
 
 osxlib:
-	gcc -dynamiclib -o lib/librtqr.dylib lib/*.c -lcrypto
+	gcc -dynamiclib -o lib/librtqr.dylib lib/*.c lib/libquirc.a -lcrypto -lpng -ljpeg
 
 clean:
 	rm -rf build/*
