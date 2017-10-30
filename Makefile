@@ -1,12 +1,12 @@
 all: main standalone
 
-main: lib
+main: maclib
 	gcc -o build/main.out src/*.c lib/libquirc.a -Ilib -Llib -lrtqr
 
-test: lib
+test: maclib
 	gcc -g -o build/test.out src/*.c -Ilib -Llib -lrtqr 
 
-lib:
+maclib:
 	gcc -dynamiclib -o lib/librtqr.dylib lib/*.c lib/libquirc.a -lcrypto -lpng -ljpeg
 
 standalone:

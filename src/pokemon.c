@@ -29,17 +29,16 @@ void printTeam(pokemon* team) {
 
 void printPM(pokemon* pm) {
   int formid = pm->EncounterFlags >> 3;
-  printf("Monster: #%d %s @ %s\n", pm->MonsNo, getPM_MonsName(pm->MonsNo, formid), getPM_ItemName(pm->HoldItem));
+  printf("#%d %s @ %s\n", pm->MonsNo, getPM_MonsName(pm->MonsNo, formid), getPM_ItemName(pm->HoldItem));
   //printf("FormID: %d\n", formid);
   printf("Ability: %s\n", getPM_AbilityNameByFlag(pm->MonsNo, formid, pm->AbilityFlags));
   //printf("AbilityFlags: %d\n", pm->AbilityFlags);
   printf("Level: %d\n", pm->Level);
   //printf("HoldItem: %s\n", getPM_ItemName(pm->HoldItem));
   printf("Nature: %s\n", getPM_NatureName(pm->Nature));
+  printf("EVs: %d/%d/%d/%d/%d/%d\n", pm->EffortHp, pm->EffortAtk, pm->EffortDef, pm->EffortSpAtk, pm->EffortSpDef, pm->EffortSpeed);
   printPMIV(pm->IvFlags);
-  printPMHT(pm->HyperTrainingFlags);
-  printf("EVs:%d/%d/%d/%d/%d/%d\n", pm->EffortHp, pm->EffortAtk, pm->EffortDef, pm->EffortSpAtk, pm->EffortSpDef, pm->EffortSpeed);
-
+  if (pm->Level == 100) printPMHT(pm->HyperTrainingFlags);
   printf("Move: %s / %s / %s / %s \n", getPM_MoveName(pm->Moves[0]), getPM_MoveName(pm->Moves[1]), getPM_MoveName(pm->Moves[2]), getPM_MoveName(pm->Moves[3]));
   //for (int i=0;i<4; i++) {  printf("Move %i: %s\n", i+1, getPM_MoveName(pm->Moves[i])); }
   printf("PPUps: %d/%d/%d/%d\n", pm->PPUps[0], pm->PPUps[1], pm->PPUps[2], pm->PPUps[3]);
@@ -49,20 +48,23 @@ void printPM(pokemon* pm) {
 
 void printPMIV(int IVFlags) {
   int IVTemp[6] = {0};
-  for (int i=0; i<6; i++) { // hp atk def spd satk sdef
+  int i;
+  for (i=0; i<6; i++) { // hp atk def spd satk sdef
     IVTemp[i] = ((int)IVFlags>>(i*5)) & 0x1F;
-    printf("IV[%d]:%d ", i, IVTemp[i]);
   }
-  printf("\n");
+  //int order[6] = {0,1,2,4,5,3};
+  //for (i=0; i<6; i++) { printf("IV[%d]:%d ", order[i], IVTemp[order[i]]); }
+  printf("IVs: %d/%d/%d/%d/%d/%d\n", IVTemp[0], IVTemp[1], IVTemp[2], IVTemp[4], IVTemp[5], IVTemp[3]);
 }
 
 void printPMHT(int HTFlags) {
   int HTTemp[6] = {0};
   for (int i=0; i<6; i++) {
     HTTemp[i] = HTFlags>>(i*1) & 0x01;
-    printf("HT[%d]:%d ", i, HTTemp[i]);
+    if (i==0) printf("HTs: %d", HTTemp[i]);
+    printf("/%d", HTTemp[i]);
   }
-  printf("\n");
+    printf("\n");
 }
 
 int getHPType(int IVFlags) {
