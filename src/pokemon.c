@@ -48,13 +48,15 @@ void printPM(pokemon* pm) {
 
 void printPMIV(int IVFlags) {
   int IVTemp[6] = {0};
-  int i;
+  int i, flag = 0;
   for (i=0; i<6; i++) { // hp atk def spd satk sdef
     IVTemp[i] = ((int)IVFlags>>(i*5)) & 0x1F;
+    if (IVTemp[i] < 31) flag+=1;
   }
   //int order[6] = {0,1,2,4,5,3};
   //for (i=0; i<6; i++) { printf("IV[%d]:%d ", order[i], IVTemp[order[i]]); }
-  printf("IVs: %d/%d/%d/%d/%d/%d\n", IVTemp[0], IVTemp[1], IVTemp[2], IVTemp[4], IVTemp[5], IVTemp[3]);
+  if (flag)
+    printf("IVs: %d/%d/%d/%d/%d/%d\n", IVTemp[0], IVTemp[1], IVTemp[2], IVTemp[4], IVTemp[5], IVTemp[3]);
 }
 
 void printPMHT(int HTFlags) {
